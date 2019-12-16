@@ -1,18 +1,18 @@
-/* First Kata 
-
-numero entre  el 1 y 100. si es divisble por 3, escribir foo. si es por 5 escribir bar. si es por 7 escribir quix. si es por 3 y 5 ej: foobar. por cada 
-dígito 3, 5, o 7 añadiremos foo, bar, quix respectivamente y en orden de aparición.*/
+/* First Kata */
 
 
-const numberDivisible = (num) => {
+const numberDivisible = (number) => {
 
    /* First step : check is number */
-   if (typeof num === "number") {
-      
-      for( i=1; i<=num; i++ ){
+   if (typeof number === "number") {
+
+
+      /* Second step : iterate number by number params*/
+      for(let i=1; i<=number; i++ ){
 
          let res = "";
 
+         /* Check number if divisible by 3, 5 or 7*/
          if ( i % 3 == 0 ){
    
             res += "Foo";
@@ -30,43 +30,48 @@ const numberDivisible = (num) => {
             res += "Quix";
       
          }
-         
 
-   
-         console.log(i, '->', res);
+
+         /* Third step: preparer parameter for iterate him and check-it if contains 3, 5 or 7 */
+         let prep = i.toString();
+         let cont = "";
+
+         for (let x of prep) {
+
+            if (x.toString().includes('3')) {
+
+               cont += "Foo";
+            }
+            if (x.toString().includes('5')) {
+
+               cont += "Bar";
+            }
+            if (x.toString().includes('7')) {
+
+               cont += "Quix";
+            }
+
+
+         }
+
+         /* Four step: show result */
+         console.log(i,'->',res,cont);
        
-      }   
+      }
 
 
    }else{
 
-      console.log( 'Is not a number!!' );
+      console.log( 'Please, input a type number' );
 
    }
 
-}
-
-numberDivisible(30);
-
-let num = 73;
-let str = num.toString();
-let cont = "";
+};
 
 
-for (let x of str){
+numberDivisible(100);
+//numberDivisible(45);
+//numberDivisible(2500);
 
-   if (x.toString().includes('3') ){
-
-      cont += "tres";
-   }
-   if (x.toString().includes('5') ){
-
-      cont += "cinco";
-   }
-   if (x.toString().includes('7') ){
-
-      cont += "siete";
-   }
-}
-
-console.log(str,cont);
+/*Show error if param is string*/
+//numberDivisible("hola");
