@@ -4,7 +4,7 @@
 const numberDivisible = (number) => {
 
    /* First step : check is number */
-   if (typeof number === "number") {
+   if (typeof number == "number") {
 
 
       /* Second step : iterate number by number params*/
