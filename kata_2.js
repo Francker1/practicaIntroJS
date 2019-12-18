@@ -100,10 +100,34 @@ const arabToRoman = number => {
     }
 };
 
-console.log(arabToRoman("85"));
-console.log(arabToRoman(4100));
-console.log(arabToRoman(2586));
-console.log(arabToRoman(38));
-console.log(arabToRoman(859));
-console.log(arabToRoman(10));
-console.log(arabToRoman("say hi!!"));
+// console.log(arabToRoman("85"));
+// console.log(arabToRoman(4100));
+// console.log(arabToRoman(2586));
+// console.log(arabToRoman(38));
+// console.log(arabToRoman(859));
+// console.log(arabToRoman(10));
+// console.log(arabToRoman("say hi!!"));
+
+//------------------------------------------------------------ 2ª parte
+
+const romanToArab = roman => {
+    
+    const romanLetters = {
+        "M" : 1000,
+        "D" : 500,
+        "C" : 100,
+        "L" : 50,
+        "X" : 10,
+        "V" : 5,
+        "I" : 1,
+    };
+
+
+    for(let rn in romanLetters){
+
+       console.log(rn, romanLetters[rn]);
+
+    }
+}
+
+romanToArab();
