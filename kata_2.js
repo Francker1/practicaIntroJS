@@ -1,59 +1,87 @@
 /* Second Kata */
 
+const numRomanFin = num => {
+
+    let numToStr;
+    let numFindLast;
+    let resultLast = "";
+    
+    numToStr = num.toString();
+    numFindLast = numToStr.charAt(numToStr.length-1);
+
+    switch (numFindLast) {
+    
+        case '4': resultLast = 'IV'; break;
+        case '9': resultLast = 'IX'; break;
+        default:  resultLast = '';
+    } 
+
+    return resultLast;
+} 
+
 const arabToRoman = number => {
 
     let msg = "";
+
+    /*creo array vacío donde iré metiendo todas las letras del objeto*/
+    let res = [];
+
+    /* parámetro que se va a pasar para encontrar el la última cifra del num a pasar a romano*/
+    let numberToFindlast = number;
 
     try {
 
         if( typeof number == "number" ){
 
-            if( number > 1 && number <= 3999){
+            if( number >= 1 && number <= 3999){
+                
                 /*my code here*/
                 const numArray = {
-                    M : "1000",
-                    D : "500",
-                    C : "100",
-                    L : "50",
-                    X : "10",
-                    V : "5",
-                    I : "1",
+                    "M" : 1000,
+                    "D" : 500,
+                    "C" : 100,
+                    "L" : 50,
+                    "X" : 10,
+                    "V" : 5,
+                    "I" : 1,
                 };
-
-                let res = [];
-
+              
                 for (var x in numArray) {
-
-                    // console.log(x + ": " + numArray[x])
+                    
+                    /* recorro el objeto para obtener prop y val*/
                     if( number >= numArray[x]){
-
+                        
                         let numberHight = Math.floor(number / numArray[x]);
 
                         /*aíslo la mayor cantidad entera*/
                         number -= (numberHight * numArray[x]);
-
+                       
                         /*no se repitan 3 o más letras*/
                         if( numberHight <= 3 ){
                             while(numberHight--){
-
-                                /*voy añadiendo las letras*/
+                                /*voy añadiendo las letras, hasta que numHight sea 0*/
                                 res.push(x);
-                                //console.log(res);
                             }
-                        }
+                        }else {
+                            /**si es 4 o 9 (letras que no se deben repetir más de 3 veces como IIII o VIIII) */
 
+                            /* quito última letra del array (V) y reemplazo*/
+                            res.pop();
+
+                            insert = numRomanFin(numberToFindlast); 
+                            res.push(insert);
+                        }
                     }else{
-                        //console.log('mayor');
+                        /*si no se cumple, cargo en el array un elemento vacío para no hacer nada con él*/
                         res.push('');
                     }
 
                 }
 
+                /*uno todo el array resultante*/
                 msg = res.join('');
-                 console.log( msg );
 
             }else{
-
                 throw "error2";
             }
 
@@ -72,6 +100,10 @@ const arabToRoman = number => {
     }
 };
 
-arabToRoman(85);
-arabToRoman(780);
-arabToRoman(2580);
+console.log(arabToRoman("85"));
+console.log(arabToRoman(4100));
+console.log(arabToRoman(2586));
+console.log(arabToRoman(38));
+console.log(arabToRoman(859));
+console.log(arabToRoman(10));
+console.log(arabToRoman("say hi!!"));
