@@ -111,23 +111,17 @@ const arabToRoman = number => {
 //------------------------------------------------------------ 2ª parte
 
 const romanToArab = roman => {
-    
-    const romanLetters = {
-        "M" : 1000,
-        "D" : 500,
-        "C" : 100,
-        "L" : 50,
-        "X" : 10,
-        "V" : 5,
-        "I" : 1,
-    };
 
+    const romanArray = [ "M", "D", "C", "L", "X", "V", "I" ];
+    const numSameArray = [1000, 500, 100, 50, 10, 5, 1];
 
-    for(let rn in romanLetters){
+    /* primero recorro el array de letras para obtener indice y correspondiente*/
 
-       console.log(rn, romanLetters[rn]);
-
+    for( let dig in romanArray ){
+        console.log(dig);
     }
-}
 
-romanToArab();
+
+};
+
+console.log(romanToArab("DLXXXIV"));
