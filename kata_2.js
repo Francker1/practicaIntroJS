@@ -17,7 +17,7 @@ const numRomanFin = num => {
     } 
 
     return resultLast;
-} 
+}
 
 const arabToRoman = number => {
 
@@ -112,6 +112,9 @@ const arabToRoman = number => {
 
 const romanToArab = roman => {
 
+    let index = "";
+    let result = 0;
+
     const romanArray = [ "M", "D", "C", "L", "X", "V", "I" ];
     const numSameArray = [1000, 500, 100, 50, 10, 5, 1];
 
@@ -119,9 +122,35 @@ const romanToArab = roman => {
 
     for( let dig in romanArray ){
         console.log(dig);
+        /*busco correspondencia en array según parámetro, si no la encientro, -1*/
+        index = roman.indexOf(romanArray[dig]);
+        console.log(index);
+
+        /*encontrando todas las apariciones del cada valor del parámetro en el array*/
+        while(index != -1){
+
+            /*voy quitando letra por letra para acumular su valor numérico, que se irá sumando*/
+            roman = roman.replace(romanArray[dig], "");
+
+            /*reasigno index hasta que deje de encontrar resultados*/
+            index = roman.indexOf(romanArray[dig]);
+
+            /*voy sumando su correspondiente valor segun indice (letra)*/
+            result += numSameArray[dig];
+        }
+
+    }
+
+    /*comprobando que sea menor de 3999*/
+    if( result > 3999){
+        return "number minor than 3999 please!";
+    }else{
+        return result;
     }
 
 
 };
 
-console.log(romanToArab("DLXXXIV"));
+console.log(romanToArab("MMVI"));
+console.log(romanToArab("MMMMDXV"));
+console.log(romanToArab("DCCCLIX"));
