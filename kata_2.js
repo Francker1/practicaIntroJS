@@ -158,81 +158,79 @@ const romanToArab = roman => {
 //------------------------------------------------------------ 3ª parte
 const validateRoman = str => {
 
+    /* primero convierto string a mayús*/
     str = str.toUpperCase();
 
     const chain = ["M","D","C","L","X","V","I"];
+    const errors = ['DM', 'LC', 'LD', 'LM', 'VX', 'VL', 'VC', 'VD', 'VM'];
+
     let resp = "";
     let ans = "";
     let occurs = "";
-    
 
-    for( let i of str){
+    /* antes de nada compruebo que no existan caracteres que puedan dar error*/
+    for( let u of errors){
 
-        /* primero compruebo que el parámetro que se introduce pertenece a un número romano */
-        ans = chain.includes(i);
-
-        if ( ans === false){
-           
-            /* si se encuentra con una primera respuesta falsa, dejo de ejecutar y devuelvo error*/
-            resp = "Debes introducir una letra contenida en MDCLXVI";
+        if( str.includes(u) ){
+            resp = false;
             break;
-            
+
+        /* si es ok y no hay caracteres 'prohibidos', analizo letra por letra*/
         }else{
-            /* my code here*/
 
-            //console.log(i);
+            for( let i of str){
 
-            /*para comprobar qué letras se van a validar según las reglas*/
-            switch(i){
+                /* primero compruebo que el parámetro que se introduce pertenece a un número romano */
+                ans = chain.includes(i);
 
-                case 'M' :  
-                case 'C' :
-                case 'X' :  
-                case 'I' :
+                if ( ans === false){
 
-                    occurs = str.split(i).length-1;
-                    resp = occurs > 3 ?  `${i} no se debe repetir más de 3 veces` : true;
-                    break;
-                
-                case 'V' : 
-                case 'L' :
-                case 'D' :
-
-                    occurs = str.split(i).length-1;
-                    resp = occurs > 1 ? `${i} no se debe repetir más de 1 veces` : true;
+                    /* si se encuentra con una primera respuesta falsa, dejo de ejecutar y devuelvo error*/
+                    resp = false;
                     break;
 
+                }else{
+
+                    /* my code here*/
+                    /*para comprobar qué letras se van a validar según las reglas*/
+                    switch(i){
+
+                        case 'M' :
+                        case 'C' :
+                        case 'X' :
+                        case 'I' :
+
+                            occurs = str.split(i).length-1;
+                            resp = occurs > 3 ? false : true;
+                            /*se podría simplificar : resp = occurs <= 3; pero la lectura se hace más compleja*/
+
+                            break;
+
+                        case 'V' :
+                        case 'L' :
+                        case 'D' :
+
+                            occurs = str.split(i).length-1;
+                            resp = occurs > 1 ? false : true;
+                            /*se podría simplificar : resp = occurs <= 1; pero la lectura se hace más compleja*/
+
+                            break;
+
+                    }
+                }
             }
-
-
-            
         }
-
-
     }
     
     return resp;
 
 };
 
-// console.log(validateRoman("LC"));
-// console.log(validateRoman("MXXXX"));
-// console.log(validateRoman("L"));
-// console.log(validateRoman("LVV"));
-// console.log(validateRoman("MjXI"));
-// console.log(validateRoman("125"));
 
-let rom = 'VL';
-
-let errors = ['DM', 'LC', 'LD', 'LM', 'VX', 'VL', 'VC', 'VD', 'VM'];
-
-for( let u of errors){
-
-        if(rom.includes(u)){
-            console.log('error');
-            break;
-        }else{
-            console.log('ok');
-        }
-
-}
+ console.log(validateRoman("MMVI"));
+ console.log(validateRoman("LCVXDM"));
+ console.log(validateRoman("MXXXX"));
+ console.log(validateRoman("L"));
+ console.log(validateRoman("LVV"));
+ console.log(validateRoman("MjXI"));
+ console.log(validateRoman("125"));
