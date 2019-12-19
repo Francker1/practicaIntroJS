@@ -185,48 +185,54 @@ const validateRoman = str => {
             /*para comprobar qué letras se van a validar según las reglas*/
             switch(i){
 
-                
-
                 case 'M' :  
                 case 'C' :
                 case 'X' :  
-                case 'I' :   
+                case 'I' :
 
-                
-               // resp = "";
-
-                
                     occurs = str.split(i).length-1;
-                    resp = occurs > 3 ?  `${i} no se debe repetir más de 3 veces` : true; 
-                    
-                    //occurs = "";
+                    resp = occurs > 3 ?  `${i} no se debe repetir más de 3 veces` : true;
                     break;
                 
                 case 'V' : 
+                case 'L' :
+                case 'D' :
 
-                
-               // resp = "";
-
-                    if( str.split(i).length-1 > 1 ){
-                        resp = "error";
-                    }else{
-                        resp = true;
-                    }
-
-                break;
+                    occurs = str.split(i).length-1;
+                    resp = occurs > 1 ? `${i} no se debe repetir más de 1 veces` : true;
+                    break;
 
             }
+
+
             
         }
-        
+
+
     }
     
     return resp;
 
 };
 
-console.log(validateRoman("MXXXX"));
-console.log(validateRoman("MXLV"));
-console.log(validateRoman("VVv"));
-console.log(validateRoman("MjXI"));
-console.log(validateRoman("125"));
+// console.log(validateRoman("LC"));
+// console.log(validateRoman("MXXXX"));
+// console.log(validateRoman("L"));
+// console.log(validateRoman("LVV"));
+// console.log(validateRoman("MjXI"));
+// console.log(validateRoman("125"));
+
+let rom = 'VL';
+
+let errors = ['DM', 'LC', 'LD', 'LM', 'VX', 'VL', 'VC', 'VD', 'VM'];
+
+for( let u of errors){
+
+        if(rom.includes(u)){
+            console.log('error');
+            break;
+        }else{
+            console.log('ok');
+        }
+
+}
