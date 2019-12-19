@@ -124,6 +124,7 @@ const romanToArab = roman => {
 
         /*busco correspondencia en array según parámetro, si no la encientro, -1*/
         index = roman.indexOf(romanArray[dig]);
+        console.log(index);
 
         /*encontrando todas las apariciones del cada valor del parámetro en el array*/
         while(index != -1){
@@ -154,29 +155,53 @@ const romanToArab = roman => {
 // console.log(romanToArab("MMMMDXV"));
 // console.log(romanToArab("DCCCLIX"));
 
-
 //------------------------------------------------------------ 3ª parte
 const validateRoman = str => {
 
     str = str.toUpperCase();
 
-    console.log(str);
+    let chain = ["M","D","C","L","X","V","I"];
+    let resp = "";
+    let ans = "";
+    
+
+    for( let i of str){
+
+        /* primero compruebo que el parámetro que se introduce pertenece a un número romano */
+        ans = chain.includes(i);
+
+        if ( ans === false){
+           
+            /* si se encuentra con una primera respuesta falsa, dejo de ejecutar y devuelvo error*/
+            resp = "Debes introducir una letra contenida en MDCLXVI";
+            break;
+            
+        }else{
+            /* my code here*/
+
+            //console.log(i);
+
+            /*para comprobar qué letras se van a validar según las reglas*/
+            switch(i){
+
+                case 'M' :  
+                
+                    console.log('m!'); 
+                    break;
+                    
+                case 'C' :  console.log('c!'); break;
+                case 'X' :  console.log('x!'); break;
+                case 'I' :  console.log('i!'); break;
+
+            }
+
+            resp = "ok";
+        }
+        
+    }
+    
+    return resp;
 
 };
 
-validateRoman("mdMXL");
-
-let str2 = "MMMXILIII";
-
-let valM = str2.split('M').length-1;
-let valC = str2.split('C').length-1;
-let valX = str2.split('X').length-1;
-let valI = str2.split('I').length-1;
-
-console.log(valM);
-
-if (valM > 3 || valC > 3 || valX > 3 || valI > 3 ){
-    console.log('error');
-}else{
-    console.log('continue');
-}
+console.log(validateRoman("iMLXl"));
