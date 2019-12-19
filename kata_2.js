@@ -185,25 +185,35 @@ const validateRoman = str => {
             /*para comprobar qué letras se van a validar según las reglas*/
             switch(i){
 
+                
+
                 case 'M' :  
+                case 'C' :
+                case 'X' :  
+                case 'I' :   
 
-                    /* cuento las veces que se repite M en el str */
+                
+               // resp = "";
+
+                
                     occurs = str.split(i).length-1;
-
-                    if(occurs > 3){
-
-                        resp = `${i} no se debe repetir más de 3 veces`;
-
-                    }else{
-
-                        resp = 'ok';
-                        continue;
-                    }                    
+                    resp = occurs > 3 ?  `${i} no se debe repetir más de 3 veces` : true; 
+                    
+                    //occurs = "";
                     break;
+                
+                case 'V' : 
 
-                case 'C' :  console.log(i); break;
-                case 'X' :  console.log(i); break;
-                case 'I' :  console.log(i); break;
+                
+               // resp = "";
+
+                    if( str.split(i).length-1 > 1 ){
+                        resp = "error";
+                    }else{
+                        resp = true;
+                    }
+
+                break;
 
             }
             
@@ -215,4 +225,8 @@ const validateRoman = str => {
 
 };
 
-console.log(validateRoman("iMmmmmLXlm"));
+console.log(validateRoman("MXXXX"));
+console.log(validateRoman("MXLV"));
+console.log(validateRoman("VVv"));
+console.log(validateRoman("MjXI"));
+console.log(validateRoman("125"));
