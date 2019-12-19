@@ -17,7 +17,7 @@ const numRomanFin = num => {
     } 
 
     return resultLast;
-}
+};
 
 const arabToRoman = number => {
 
@@ -121,10 +121,9 @@ const romanToArab = roman => {
     /* primero recorro el array de letras para obtener indice y correspondiente*/
 
     for( let dig in romanArray ){
-        console.log(dig);
+
         /*busco correspondencia en array según parámetro, si no la encientro, -1*/
         index = roman.indexOf(romanArray[dig]);
-        console.log(index);
 
         /*encontrando todas las apariciones del cada valor del parámetro en el array*/
         while(index != -1){
@@ -151,6 +150,33 @@ const romanToArab = roman => {
 
 };
 
-console.log(romanToArab("MMVI"));
-console.log(romanToArab("MMMMDXV"));
-console.log(romanToArab("DCCCLIX"));
+// console.log(romanToArab("MMVI"));
+// console.log(romanToArab("MMMMDXV"));
+// console.log(romanToArab("DCCCLIX"));
+
+
+//------------------------------------------------------------ 3ª parte
+const validateRoman = str => {
+
+    str = str.toUpperCase();
+
+    console.log(str);
+
+};
+
+validateRoman("mdMXL");
+
+let str2 = "MMMXILIII";
+
+let valM = str2.split('M').length-1;
+let valC = str2.split('C').length-1;
+let valX = str2.split('X').length-1;
+let valI = str2.split('I').length-1;
+
+console.log(valM);
+
+if (valM > 3 || valC > 3 || valX > 3 || valI > 3 ){
+    console.log('error');
+}else{
+    console.log('continue');
+}
