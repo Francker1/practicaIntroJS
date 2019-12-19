@@ -160,9 +160,10 @@ const validateRoman = str => {
 
     str = str.toUpperCase();
 
-    let chain = ["M","D","C","L","X","V","I"];
+    const chain = ["M","D","C","L","X","V","I"];
     let resp = "";
     let ans = "";
+    let occurs = "";
     
 
     for( let i of str){
@@ -185,17 +186,27 @@ const validateRoman = str => {
             switch(i){
 
                 case 'M' :  
-                
-                    console.log('m!'); 
+
+                    /* cuento las veces que se repite M en el str */
+                    occurs = str.split(i).length-1;
+
+                    if(occurs > 3){
+
+                        resp = `${i} no se debe repetir más de 3 veces`;
+
+                    }else{
+
+                        resp = 'ok';
+                        continue;
+                    }                    
                     break;
-                    
-                case 'C' :  console.log('c!'); break;
-                case 'X' :  console.log('x!'); break;
-                case 'I' :  console.log('i!'); break;
+
+                case 'C' :  console.log(i); break;
+                case 'X' :  console.log(i); break;
+                case 'I' :  console.log(i); break;
 
             }
-
-            resp = "ok";
+            
         }
         
     }
@@ -204,4 +215,4 @@ const validateRoman = str => {
 
 };
 
-console.log(validateRoman("iMLXl"));
+console.log(validateRoman("iMmmmmLXlm"));
