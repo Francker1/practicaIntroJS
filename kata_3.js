@@ -51,13 +51,7 @@ class Croupier {
 
     /* métodos auxiliares */
 
-    resultByHand(array){
-
-        return array.sort();
-    }
-
-
-    getResuts(arr){
+    getResults(arr){
 
         return helper.getOccurrence(arr);
 
@@ -66,24 +60,19 @@ class Croupier {
 
 class Player1 extends Croupier {
 
-
     setHand(){
-
-        super.shuffle();
+        super.shuffle().sort();
         return this.hand;
     }
-
 }
 
 class Player2 extends Croupier {
 
     setHand(){
-
-        super.shuffle();
+        super.shuffle().sort();
         return this.hand;
     }
 }
-
 
 class Helper extends Croupier{
 
@@ -109,20 +98,34 @@ class Helper extends Croupier{
         return palo;
     }
 
+    /* asociar valores a letras para poder compararlas correctamente */
+    associateValueToLetter(array){
+
+        let values = array.map(function(x) {
+
+            switch(x){
+                case 'T': x = 10; break;
+                case 'J': x = 11; break;
+                case 'Q': x = 12; break;
+                case 'K': x = 13; break;
+                case 'A': x = 14; break;
+            }
+
+            return x;
+        });
+
+        /* devuelvo el nuevo array pero ordenado */
+        return values.sort(function(a, b){return a - b});
+    }
+
     getOccurrence(array) {
 
         let count = [];
         let legend = "";
         let pairs = 0, four = 0, three = 0;
 
-        //let t = "";
-        console.log(array);
-
-
+        /* si en el array de números hay letras les asigno valor: */
         let doubles = helper.associateValueToLetter(array);
-
-        console.log(doubles);
-
 
         doubles.forEach(function(x) { count[x] = (count[x] || 0)+1; });
 
@@ -151,56 +154,79 @@ class Helper extends Croupier{
 
     }
 
-    /* asociar valores a letras para poder compararlas correctamente */
-    associateValueToLetter(array){
+    getSameNums(array){
 
-        let values = array.map(function(x) {
+        let doubles = helper.associateValueToLetter(array);
+        let consecutive = true;
 
-
-            switch(x){
-                case 'T': x = 10; break;
-                case 'J': x = 11; break;
-                case 'Q': x = 12; break;
-                case 'K': x = 13; break;
-                case 'A': x = 14; break;
+        /*compruebo si hay números consecutivos*/
+        for (let i = 1; i < doubles.length; i++) {
+            if (doubles[i - 1] != doubles[i] - 1) {
+                consecutive = false;
             }
+        }
 
-            return x;
+        return consecutive;
+    }
 
+    getSameSuits(array){
+
+        const suit = array.shift();
+        let count = 0;
+
+        array.map(ele => {
+            if (ele === suit) {
+                count++;
+            }
         });
 
-        return values;
+        return count === 4 ? true : false ;
+
     }
 
 }
 
+/* instancio los objetos */
 const croupier = new Croupier();
 const player1 = new Player1();
 const player2 = new Player2();
 const helper = new Helper();
 
 
+/* seteo manos y las ordeno */
 const hand1 = player1.setHand();
 const hand2 = player2.setHand();
 
-const res1 = croupier.resultByHand(hand1);
+
+/* recojo los números de cada mano*/
 const num1 = helper.getNumSuit(hand1);
+const palo1 = helper.getPaloSuit(hand1);
+
 const num2 = helper.getNumSuit(hand2);
-const palo2 = helper.getPaloSuit(hand1);
+//const palo2 = helper.getPaloSuit(hand1);
+
+
+const result1 = croupier.getResults(num1);
+const result2 = croupier.getResults(num2);
+
+const test1 = helper.getSameNums(num1);
+const test2 = helper.getSameSuits(palo1);
 
 
 
-
-
-console.log('Jugador 1',hand1);
-console.log('Jugador 2',hand2);
 console.log('-----------');
+console.log('Jugador 1',hand1, result1);
+console.log('Jugador 2',hand2, result2);
+
 //console.log('Las cartas del player 1 son:',res1);
-console.log('Los números del player 1 son:',num1);
-console.log('Las palos del player 1 son:',palo2);
+//console.log('Los números del player 1 son:',num1);
+//console.log('Las palos del player 1 son:',palo2);
 console.log('-----------');
-//console.log(rep);
+console.log(test1);
+console.log('-----------');
+console.log(test2);
 
-//croupier.getResuts(num1);
-console.log(croupier.getResuts(num1));
-console.log(croupier.getResuts(num2));
+
+//[ 'C', 'C', 'C', 'C', 'H' ]
+
+
