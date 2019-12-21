@@ -118,7 +118,13 @@ class Helper extends Croupier{
         //let t = "";
         console.log(array);
 
-        array.forEach(function(x) { count[x] = (count[x] || 0)+1; });
+
+        let doubles = helper.associateValueToLetter(array);
+
+        console.log(doubles);
+
+
+        doubles.forEach(function(x) { count[x] = (count[x] || 0)+1; });
 
         for( let repeat of count ){
 
@@ -142,19 +148,28 @@ class Helper extends Croupier{
         }
 
         return legend ;
+
     }
 
+    /* asociar valores a letras para poder compararlas correctamente */
+    associateValueToLetter(array){
 
-    associateValuetoLetter(letter){
-        switch (letter) {
-            case "T": return 10;
-            case "J": return 11;
-            case "Q": return 12;
-            case "K": return 13;
-            case "A": return 14;
-            default:
-                return parseInt(letra);
-        }
+        let values = array.map(function(x) {
+
+
+            switch(x){
+                case 'T': x = 10; break;
+                case 'J': x = 11; break;
+                case 'Q': x = 12; break;
+                case 'K': x = 13; break;
+                case 'A': x = 14; break;
+            }
+
+            return x;
+
+        });
+
+        return values;
     }
 
 }
@@ -189,4 +204,3 @@ console.log('-----------');
 //croupier.getResuts(num1);
 console.log(croupier.getResuts(num1));
 console.log(croupier.getResuts(num2));
-
