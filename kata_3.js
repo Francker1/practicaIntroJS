@@ -57,11 +57,10 @@ class Croupier {
     }
 
 
-    getResuts(num, palo){
+    getResuts(arr){
 
-        for( let x of num){
-        console.log(helper.getOccurrence(num, x));
-        }
+        return helper.getOccurrence(arr);
+
     }
 }
 
@@ -110,22 +109,52 @@ class Helper extends Croupier{
         return palo;
     }
 
-    getOccurrence(array, value) {
+    getOccurrence(array) {
 
-        let count = 0;
+        let count = [];
         let legend = "";
+        let pairs = 0, four = 0, three = 0;
 
-        array.forEach((v) => (v === value && count++));
+        //let t = "";
+        console.log(array);
 
-        if(count == 4){
-            legend = 'Poker';
-        }else if(count == 3){
-            legend = 'Trio';
-        }else if( count == 2){
-            legend = 'Pairs'
+        array.forEach(function(x) { count[x] = (count[x] || 0)+1; });
+
+        for( let repeat of count ){
+
+            if (repeat >= 4) four ++;
+            if (repeat >= 2) pairs ++;
+            if (repeat >= 3) three ++;
         }
 
-        return legend;
+        if(four > 0) {
+            legend = "Four of a kind";
+        } else if (three === 1 && pairs > 1) {
+            legend =  "Full House";
+        } else if ( three === 1) {
+            legend =  "Three of a kind";
+        } else if (pairs === 2) {
+            legend =  "Two pairs";
+        } else if (pairs === 1) {
+            legend =  "Pairs";
+        } else {
+            legend = false;
+        }
+
+        return legend ;
+    }
+
+
+    associateValuetoLetter(letter){
+        switch (letter) {
+            case "T": return 10;
+            case "J": return 11;
+            case "Q": return 12;
+            case "K": return 13;
+            case "A": return 14;
+            default:
+                return parseInt(letra);
+        }
     }
 
 }
@@ -141,8 +170,8 @@ const hand2 = player2.setHand();
 
 const res1 = croupier.resultByHand(hand1);
 const num1 = helper.getNumSuit(hand1);
+const num2 = helper.getNumSuit(hand2);
 const palo2 = helper.getPaloSuit(hand1);
-//const res2 = croupier.resultByHand(hand2);
 
 
 
@@ -157,14 +186,7 @@ console.log('Las palos del player 1 son:',palo2);
 console.log('-----------');
 //console.log(rep);
 
-croupier.getResuts(num1);
+//croupier.getResuts(num1);
+console.log(croupier.getResuts(num1));
+console.log(croupier.getResuts(num2));
 
-
-
-
-
-
-
-//console.log('repeticiones');
-//console.log(getOccurrence(str, 'T'));  // 2
-//console.log(getOccurrence(str, '6'));  // 3
