@@ -49,13 +49,25 @@ class Croupier {
     }
 
 
-    /* métodos auxiliares */
+    /* Juguemos! */
+    playPoker(){
 
-    getResults(arr){
+         this.player1 = hand1;
+         this.player2 = hand2;
 
-        return helper.getOccurrence(arr);
+         //this.p1Result = this.ranks.indexOf(helper.getResults(this.player1));
+         this.p1Result = this.ranks.indexOf(helper.getResults(this.player1));
+         this.p2Result = this.ranks.indexOf(helper.getResults(this.player2));
+
+        console.log('empezaremos a jugar pronto');
+
+        console.log(this.p1Result);
+        console.log(this.p2Result);
+
+
 
     }
+
 }
 
 class Player1 extends Croupier {
@@ -118,6 +130,7 @@ class Helper extends Croupier {
         return values.sort(function(a, b){return a - b});
     }
 
+    /*repeticiones*/
     getOccurrence(array) {
 
         let count = [];
@@ -156,6 +169,7 @@ class Helper extends Croupier {
 
     }
 
+    /* números consecutivos */
     getConsecNums(array){
 
         array = helper.getNumSuit(array);
@@ -173,6 +187,7 @@ class Helper extends Croupier {
         return consecutive;
     }
 
+    /* si tiene el mismo palo */
     getSameSuits(array){
 
         array = helper.getPaloSuit(array);
@@ -192,6 +207,7 @@ class Helper extends Croupier {
 
     }
 
+    /* carta más alta */
     getHightCard(array){
 
         array = helper.getNumSuit(array);
@@ -208,7 +224,12 @@ class Helper extends Croupier {
     }
 
 
+    getResults(array){
 
+        if(helper.getConsecNums(array) && helper.getSameSuits(array)){
+            return this.ranks[0];
+        }
+    }
 
 }
 
@@ -220,9 +241,16 @@ const helper = new Helper();
 
 
 /* seteo manos y las ordeno */
-const hand1 = player1.setHand();
-const hand2 = player2.setHand();
 
+//const hand1 = player1.setHand();
+//const hand2 = player2.setHand();
+
+/*para testing:*/
+const hand1 =  ['4C', '4C', '5H', '6C', 'TC'];
+const hand2 = ['3C', 'KC', '5C', '6D', '7C'];
+
+
+console.log(hand1);
 
 const repeats1 = helper.getOccurrence(hand1);
 const sameNums1 = helper.getConsecNums(hand1);
@@ -242,3 +270,5 @@ console.log('-----------');
 console.log('Jugador 2',hand2, repeats2, sameNums2, sameSuits2, hightCard2);
 console.log('-----------');
 
+
+croupier.playPoker();
