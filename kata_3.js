@@ -74,7 +74,7 @@ class Player2 extends Croupier {
     }
 }
 
-class Helper extends Croupier{
+class Helper extends Croupier {
 
     getNumSuit(array){
         let num = [];
@@ -137,15 +137,15 @@ class Helper extends Croupier{
         }
 
         if(four > 0) {
-            legend = "Four of a kind";
+            legend = this.ranks[1];
         } else if (three === 1 && pairs > 1) {
-            legend =  "Full House";
+            legend =  this.ranks[2];
         } else if ( three === 1) {
-            legend =  "Three of a kind";
+            legend =  this.ranks[5];
         } else if (pairs === 2) {
-            legend =  "Two pairs";
+            legend =  this.ranks[6];
         } else if (pairs === 1) {
-            legend =  "Pairs";
+            legend =  this.ranks[7];
         } else {
             legend = false;
         }
@@ -154,7 +154,7 @@ class Helper extends Croupier{
 
     }
 
-    getSameNums(array){
+    getConsecNums(array){
 
         let doubles = helper.associateValueToLetter(array);
         let consecutive = true;
@@ -174,6 +174,7 @@ class Helper extends Croupier{
         const suit = array.shift();
         let count = 0;
 
+        /* recorro cada elemento para comprobar si es el mismo del que he ido quitando al array de palos */
         array.map(ele => {
             if (ele === suit) {
                 count++;
@@ -183,6 +184,23 @@ class Helper extends Croupier{
         return count === 4 ? true : false ;
 
     }
+
+    getHightCard(array){
+
+        let highIndex = 0;
+
+        array.map(ele => {
+            if (this.values.indexOf(ele) > highIndex) {
+                highIndex = this.values.indexOf(ele);
+            }
+        });
+
+       return this.values[highIndex];
+
+    }
+
+
+
 
 }
 
@@ -198,35 +216,31 @@ const hand1 = player1.setHand();
 const hand2 = player2.setHand();
 
 
-/* recojo los números de cada mano*/
+/* recojo los números y palos de cada mano*/
 const num1 = helper.getNumSuit(hand1);
 const palo1 = helper.getPaloSuit(hand1);
-
 const num2 = helper.getNumSuit(hand2);
-//const palo2 = helper.getPaloSuit(hand1);
+const palo2 = helper.getPaloSuit(hand1);
 
 
-const result1 = croupier.getResults(num1);
-const result2 = croupier.getResults(num2);
+const repeats1 = croupier.getResults(num1);
+const sameNums1 = helper.getConsecNums(num1);
+const sameSuits1 = helper.getSameSuits(palo1);
+const hightCard1 = helper.getHightCard(num1);
 
-const test1 = helper.getSameNums(num1);
-const test2 = helper.getSameSuits(palo1);
 
+const repeats2 = croupier.getResults(num2);
+const sameNums2 = helper.getConsecNums(num2);
+const sameSuits2 = helper.getSameSuits(palo2);
+const hightCard2 = helper.getHightCard(num2);
 
 
 console.log('-----------');
-console.log('Jugador 1',hand1, result1);
-console.log('Jugador 2',hand2, result2);
+console.log('Jugador 1',hand1, repeats1, sameNums1, sameSuits1, hightCard1);
+console.log('Jugador 2',hand2, repeats2, sameNums2, sameSuits2, hightCard2);
 
 //console.log('Las cartas del player 1 son:',res1);
 //console.log('Los números del player 1 son:',num1);
 //console.log('Las palos del player 1 son:',palo2);
 console.log('-----------');
-console.log(test1);
-console.log('-----------');
-console.log(test2);
-
-
-//[ 'C', 'C', 'C', 'C', 'H' ]
-
 
