@@ -59,12 +59,40 @@ class Croupier {
          this.p1Result = this.ranks.indexOf(helper.getResults(this.player1));
          this.p2Result = this.ranks.indexOf(helper.getResults(this.player2));
 
+         this.hightCard1 = this.values.indexOf(helper.getHightCard(this.player1));
+         this.hightCard2 = this.values.indexOf(helper.getHightCard(this.player2));
+
         console.log('empezaremos a jugar pronto');
 
-        console.log(this.p1Result);
-        console.log(this.p2Result);
+        console.log(this.p1Result, this.ranks[this.p1Result]);
+        console.log(this.p2Result, this.ranks[this.p2Result]);
 
+        if( this.p1Result > this.p2Result ){
 
+            console.log('gana jugador 1');
+
+        }else if( this.p1Result < this.p2Result ){
+
+            console.log('gana jugador 2');
+
+        }else if ( this.p1Result === this.p2Result ){
+
+            console.log(this.hightCard1);
+            console.log(this.hightCard2);
+
+            if( this.hightCard1 > this.hightCard2 ){
+
+                console.log('gana 1');
+
+            }else if( this.hightCard1 < this.hightCard2 ){
+
+                console.log('gana 2');
+
+            }else{
+                console.log('Empate a todo!');
+            }
+
+        }
 
     }
 
@@ -223,12 +251,29 @@ class Helper extends Croupier {
 
     }
 
-
+    /* el "ayudante" devuelve los resultados */
     getResults(array){
 
+        /*straight flush*/
         if(helper.getConsecNums(array) && helper.getSameSuits(array)){
             return this.ranks[0];
         }
+
+        /*straight*/
+        if(helper.getConsecNums(array) && !helper.getSameSuits(array)){
+            return this.ranks[4];
+        }
+
+        /*flush*/
+        if(helper.getSameSuits(array) && !helper.getConsecNums(array)){
+            return this.ranks[3];
+        }
+
+        /*pairs, two pairs, three...*/
+        if(!helper.getSameSuits(array) && !helper.getConsecNums(array)){
+            return helper.getOccurrence(array);
+        }
+
     }
 
 }
@@ -242,15 +287,15 @@ const helper = new Helper();
 
 /* seteo manos y las ordeno */
 
-//const hand1 = player1.setHand();
-//const hand2 = player2.setHand();
+const hand1 = player1.setHand();
+const hand2 = player2.setHand();
 
 /*para testing:*/
-const hand1 =  ['4C', '4C', '5H', '6C', 'TC'];
-const hand2 = ['3C', 'KC', '5C', '6D', '7C'];
+//const hand1 =  ['AC', '2C', '6H', '7C', '8C'];
+//const hand2 = ['8D', '3H', 'JS', '2C', 'TD'];
 
 
-console.log(hand1);
+//console.log(hand1);
 
 const repeats1 = helper.getOccurrence(hand1);
 const sameNums1 = helper.getConsecNums(hand1);
