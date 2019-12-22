@@ -124,6 +124,8 @@ class Helper extends Croupier {
         let legend = "";
         let pairs = 0, four = 0, three = 0;
 
+        array = helper.getNumSuit(array);
+
         /* si en el array de números hay letras les asigno valor: */
         let doubles = helper.associateValueToLetter(array);
 
@@ -156,6 +158,8 @@ class Helper extends Croupier {
 
     getConsecNums(array){
 
+        array = helper.getNumSuit(array);
+
         let doubles = helper.associateValueToLetter(array);
         let consecutive = true;
 
@@ -171,8 +175,11 @@ class Helper extends Croupier {
 
     getSameSuits(array){
 
+        array = helper.getPaloSuit(array);
+
         const suit = array.shift();
         let count = 0;
+
 
         /* recorro cada elemento para comprobar si es el mismo del que he ido quitando al array de palos */
         array.map(ele => {
@@ -187,6 +194,7 @@ class Helper extends Croupier {
 
     getHightCard(array){
 
+        array = helper.getNumSuit(array);
         let highIndex = 0;
 
         array.map(ele => {
@@ -216,31 +224,21 @@ const hand1 = player1.setHand();
 const hand2 = player2.setHand();
 
 
-/* recojo los números y palos de cada mano*/
-const num1 = helper.getNumSuit(hand1);
-const palo1 = helper.getPaloSuit(hand1);
-const num2 = helper.getNumSuit(hand2);
-const palo2 = helper.getPaloSuit(hand1);
+const repeats1 = helper.getOccurrence(hand1);
+const sameNums1 = helper.getConsecNums(hand1);
+const sameSuits1 = helper.getSameSuits(hand1);
+const hightCard1 = helper.getHightCard(hand1);
 
 
-const repeats1 = croupier.getResults(num1);
-const sameNums1 = helper.getConsecNums(num1);
-const sameSuits1 = helper.getSameSuits(palo1);
-const hightCard1 = helper.getHightCard(num1);
-
-
-const repeats2 = croupier.getResults(num2);
-const sameNums2 = helper.getConsecNums(num2);
-const sameSuits2 = helper.getSameSuits(palo2);
-const hightCard2 = helper.getHightCard(num2);
+const repeats2 = helper.getOccurrence(hand2);
+const sameNums2 = helper.getConsecNums(hand2);
+const sameSuits2 = helper.getSameSuits(hand2);
+const hightCard2 = helper.getHightCard(hand2);
 
 
 console.log('-----------');
 console.log('Jugador 1',hand1, repeats1, sameNums1, sameSuits1, hightCard1);
+console.log('-----------');
 console.log('Jugador 2',hand2, repeats2, sameNums2, sameSuits2, hightCard2);
-
-//console.log('Las cartas del player 1 son:',res1);
-//console.log('Los números del player 1 son:',num1);
-//console.log('Las palos del player 1 son:',palo2);
 console.log('-----------');
 
