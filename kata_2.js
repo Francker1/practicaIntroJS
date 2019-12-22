@@ -37,13 +37,19 @@ const arabToRoman = number => {
                 
                 /*my code here*/
                 const numArray = {
-                    "M" : 1000,
-                    "D" : 500,
-                    "C" : 100,
-                    "L" : 50,
-                    "X" : 10,
-                    "V" : 5,
-                    "I" : 1,
+                    "M"  : 1000,
+                    "CM" : 900,
+                    "D"  : 500,
+                    "CD" : 400,
+                    "C"  : 100,
+                    "XC" : 90,
+                    "L"  : 50,
+                    "XL" : 40,
+                    "X"  : 10,
+                    "IX" : 9,
+                    "V"  : 5,
+                    "IV" : 4,
+                    "I"  : 1,
                 };
               
                 for (var x in numArray) {
@@ -100,13 +106,20 @@ const arabToRoman = number => {
     }
 };
 
-// console.log(arabToRoman("85"));
-// console.log(arabToRoman(4100));
-// console.log(arabToRoman(2586));
-// console.log(arabToRoman(38));
-// console.log(arabToRoman(859));
-// console.log(arabToRoman(10));
-// console.log(arabToRoman("say hi!!"));
+console.log('//---- Convert arab number to roman number ------/');
+console.log(arabToRoman("85"));
+console.log(arabToRoman(4100));
+console.log(arabToRoman(2586));
+console.log(arabToRoman(38));
+console.log(arabToRoman(859));
+console.log(arabToRoman(10));
+console.log(arabToRoman("say hi!!"));
+
+
+/*Para ejecutarlo 100 veces:*/
+/*for( let i = 0; i<=100; i++ ){
+    console.log(arabToRoman(i))
+}*/
 
 //------------------------------------------------------------ 2ª parte
 
@@ -115,8 +128,8 @@ const romanToArab = roman => {
     let index = "";
     let result = 0;
 
-    const romanArray = [ "M", "D", "C", "L", "X", "V", "I" ];
-    const numSameArray = [1000, 500, 100, 50, 10, 5, 1];
+    const romanArray =  ["CM", "M", "CD", "D", "XC", "C", "XL", "L", "IX", "X", "IV", "V", "I"];
+    const numSameArray = [ 900, 1000, 400, 500, 90, 100, 40, 50, 9, 10, 4, 5, 1];
 
     /* primero recorro el array de letras para obtener indice y correspondiente*/
 
@@ -124,7 +137,6 @@ const romanToArab = roman => {
 
         /*busco correspondencia en array según parámetro, si no la encientro, -1*/
         index = roman.indexOf(romanArray[dig]);
-        console.log(index);
 
         /*encontrando todas las apariciones del cada valor del parámetro en el array*/
         while(index != -1){
@@ -143,7 +155,7 @@ const romanToArab = roman => {
 
     /*comprobando que sea menor de 3999*/
     if( result > 3999){
-        return "number minor than 3999 please!";
+        return "Introduce a number minor than 3999 please!";
     }else{
         return result;
     }
@@ -151,9 +163,10 @@ const romanToArab = roman => {
 
 };
 
-// console.log(romanToArab("MMVI"));
-// console.log(romanToArab("MMMMDXV"));
-// console.log(romanToArab("DCCCLIX"));
+console.log('//---- Convert roman number to arab number ------//');
+console.log(romanToArab("MMVI"));
+console.log(romanToArab("MMMMDXV"));
+console.log(romanToArab("DCCCLIX"));
 
 //------------------------------------------------------------ 3ª parte
 const validateRoman = str => {
@@ -221,16 +234,17 @@ const validateRoman = str => {
             }
         }
     }
-    
+
     return resp;
 
 };
 
 
- console.log(validateRoman("MMVI"));
- console.log(validateRoman("LCVXDM"));
- console.log(validateRoman("MXXXX"));
- console.log(validateRoman("L"));
- console.log(validateRoman("LVV"));
- console.log(validateRoman("MjXI"));
- console.log(validateRoman("125"));
+console.log('//---- Validator roman numbers ------//');
+console.log(validateRoman("MMVI"));
+console.log(validateRoman("LCVXDM"));
+console.log(validateRoman("MXXXX"));
+console.log(validateRoman("L"));
+console.log(validateRoman("LVV"));
+console.log(validateRoman("MjXI"));
+console.log(validateRoman("125"));
